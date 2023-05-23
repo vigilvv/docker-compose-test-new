@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  a: 
+    image: tutum/hello-world
+    container_name: foo
+    networks:
+      - frontend
+  b: 
+    image: tutum/hello-world
+    networks:
+      frontend:
+        aliases:
+          - web
+      backend:
+        aliases:
+          - website
+  c:
+    image: tutum/hello-world
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+  sample_network:
+    external: 
+      name: jjjj

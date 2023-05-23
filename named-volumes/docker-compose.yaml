@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  worker:
+    image: tutum/hello-world
+    volumes:
+      - results:/results
+
+volumes:
+  results:
+

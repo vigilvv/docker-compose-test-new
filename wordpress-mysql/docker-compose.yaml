@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  wordpress:
+    image: wordpress:6.2.1
+    networks:
+      - my-net
+    ports:
+      - 8080:80
+    environment:
+      - WORDPRESS_DB_HOST=db:3306
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+    restart: always
+    depends_on:
+      - db
+      
+
+  db:
+    image: mariadb
+    networks:
+      - my-net
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+    restart: always
+    volumes:
+      - "./volume/db:/var/lib/mysql"
+
+networks:
+  my-net:
+    driver: bridge
